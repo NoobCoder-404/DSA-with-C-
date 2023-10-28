@@ -1,3 +1,5 @@
+// sum of two array element is equals to target value
+
 #include <bits/stdc++.h>
 using namespace std;
 
