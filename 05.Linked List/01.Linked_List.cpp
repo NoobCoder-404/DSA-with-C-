@@ -12,6 +12,16 @@ public:
         this->data = data;
         this->next = NULL;
     }
+
+    ~Node()
+    {
+        int value = this->data;
+        if (this->next != NULL)
+        {
+            delete next;
+            next = NULL;
+        }
+    }
 };
 
 void insertAtHead(Node *&head, int d)
@@ -56,6 +66,34 @@ void insertAtPosition(Node *&tail, Node *&head, int position, int d)
     temp->next = nodeToInsert;
 }
 
+void deleteNode(Node *&head, int position)
+{
+
+    if (position == 1)
+    {
+        Node *temp = head;
+        head = head->next;
+
+        temp->next = NULL;
+        delete temp;
+    }
+    else
+    {
+        int count = 1;
+        Node *prev = NULL;
+        Node *curr = head;
+        while (count < position)
+        {
+            prev = curr;
+            curr = curr->next;
+            count++;
+        }
+        prev->next = curr->next;
+        curr->next = NULL;
+        delete curr;
+    }
+}
+
 void printNode(Node *&head)
 {
     Node *temp = head;
@@ -83,17 +121,19 @@ int main()
     insertAtTail(tail, 12);
 
     insertAtTail(tail, 15);
-    printNode(head);
 
     cout << endl;
 
     insertAtPosition(tail, head, 3, 14);
+    cout << "Nodes : ";
     printNode(head);
 
     cout << endl;
+    // cout << "Head " << head->data << endl;
+    // cout << "Tail " << tail->data << endl;
 
-    cout << "Head " << head->data << endl;
-    cout << "Tail " << tail->data << endl;
+    deleteNode(head, 1);
+    printNode(head);
 
     return 0;
 }
